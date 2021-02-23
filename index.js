@@ -16,13 +16,17 @@ exports.generateUsername = function ({
   numberOfWords = 2,
   randomNumbersLength = 0,
   suffixTimestamp = false,
+  maxLength,
 } = {}) {
-  const userName = [];
+  let userName = [];
   for (let i = 0; i < numberOfWords; i++) {
     userName.push(wordList[Math.floor(Math.random() * wordList.length)]);
   }
   for (let i = 0; i < randomNumbersLength; i++) {
     userName.push(Math.floor(Math.random() * 10));
+  }
+  if (maxLength && suffixTimestamp) {
+    userName = [userName.join('').substring(0, 11)];
   }
   if (suffixTimestamp) userName.push(new Date().getTime().toString(32));
   return userName.join('');
